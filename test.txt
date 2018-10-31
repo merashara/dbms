@@ -1,0 +1,38 @@
+group: bank example
+description[[ the data for this dataset was generated using <http://www.generatedata.com/>
+
+* the relation _Customers_ contains basic information about the customers of the bank. 
+* the relation _Accounts_ contains the basic information of a single account. Note that a customer can have any number of accounts.
+* the relation _PremiumCustomers_ contains the customer-ids of all customers with a total balance over 1000
+]]
+
+
+Customers = { cid	firstname	lastname
+	1	Dexter	Simpson
+	2	Kaseem	Gallagher
+	3	Kuame	Hamilton
+	4	Robert	Thompson
+	5	Rhiannon	Valentine
+	6	Calvin	Mays
+}
+	
+Accounts = { 
+	aid, cid, balance:number
+	1,   1,   66
+	2,   1,   -304
+	3,   2,   272
+	4,   3,   3472
+	5,   4,   975.7
+	6,   4,   93
+	7,   5,   534
+	8,   5,   -75.5
+}
+
+PremiumCustomers = 
+	pi cid (
+		sigma sum > 1000 (
+			gamma cid; sum(balance)->sum (
+				Accounts join Customers
+			)
+		)
+	)
